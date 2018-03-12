@@ -2,31 +2,18 @@
 {% block title %}Test title{% endblock %}
 {% block content %}
 
-<div class="card mb-3 mt-3 p-3">
-  <h1 class="card-title text-center">Hello world!</h1>
-  <p class="card-text text-center">
-    The site is not ready yet, but should be soon!
-  </p>
-</div>
-
-<div class="rounded w-100 p-3 bg-light">
-  <div id="accordion">
+<div class="card-columns">
+    <div class="card bg-info m-1 p-3">
+      <h1 class="card-title text-center">Hello world!</h1>
+      <p class="card-text text-center">
+        The site is not ready yet, but should be soon!
+      </p>
+    </div>
     {% for article in articles %}
-    <div class="card">
-      <div class="card-header bg-white p-0" id="heading{{loop.index}}">
-        <h5 class="mb-0">
-          <button class="btn btn-block btn-link collapsed text-left text-truncate" style="color:black;" data-toggle="collapse" data-target="#collapse{{loop.index}}" aria-expanded="false" aria-controls="collapse{{loop.index}}">
-            {{article['title']}}
-          </button>
-        </h5>
-      </div>
-      <div id="collapse{{loop.index}}" class="collapse" aria-labelledby="heading{{loop.index}}" data-parent="#accordion">
-        <div class="card-body">
-          {{article['description']}}
-        </div>
-      </div>
+    <div class="card m-1 p-3">
+      <h5 class="card-title text-left"><a class="text-dark" href="{{article['url']}}">{{article['title']}}</a></h5>
+      <p class="card-text text-left">{{article['description']}}</p>
     </div>
     {% endfor %}
-  </div>
 </div>
 {% endblock %}

@@ -6,21 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mina">
+
     <!-- My own CSS -->
     <link rel="stylesheet" href="/static/base.css">
     <title>{% block title %} {% endblock %} | Morning News</title>
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="row navbar bg-light">
-        Navbar | Test | 123
+    <div class="container-fluid p-0">
+      <div class="navbar-expand-md">
+        <nav class="navbar navbar-dark bg-dark rounded-bottom">
+          <a href="/" class="navbar-brand text-light">
+            <h4>
+              <i class="fa fa-align-left">
+                <span style="font-family: Mina;"> Morning news</span>
+              </i>
+            </h4>
+          </a>
+          <span class="text-right">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#">About</a>
+                {% if current_user.is_authenticated %}
+                  <a class="nav-item nav-link">Welcome {{current_user.name}}!</a>
+                  <a class="nav-item nav-link active" href="/logout">Logout</a>
+                {% else %}
+                  <a class="nav-item nav-link active" href="/login">Log-in</a>
+                {% endif %}
+              </div>
+            </div>
+          </span>
+        </nav>
       </div>
-      <div class="row">
-        <div class="col-md-1 col-lg-1 col-xl-2"></div>
-        <div class="col-md-10 col-lg-10 col-xl-8">
-            {% block content %}{% endblock %}
+    </div>
+      <div class="container">
+        <div class="row">
+          <!-- <div class="col-xs-0 col-sm-1"></div>
+          <div class="col-xs-12 col-sm-10"> -->
+              {% block content %}{% endblock %}
+          <!-- </div>
+          <div class="col-xs-0 col-sm-1"></div> -->
         </div>
-        <div class="col-md-1 col-lg-1 col-xl-2"></div>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
