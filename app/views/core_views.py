@@ -15,6 +15,11 @@ def index():
     }
     r = requests.get("https://newsapi.org/v2/top-headlines", params=params)
     articles = [x for x in r.json().get('articles',[])]
+    for article in articles:
+        if article.get('publishedAt'):
+            article['publishedAt'] = datetime.strptime(
+                            article.get('publishedAt'),
+                            '%Y-%m-%dT%H:%M:%SZ').strftime('%d %B %Y - %H:%M')
 
     return render_template('index.html', articles=articles)
 

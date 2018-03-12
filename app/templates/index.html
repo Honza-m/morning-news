@@ -11,8 +11,22 @@
     </div>
     {% for article in articles %}
     <div class="card m-1 p-3">
-      <h5 class="card-title text-left"><a class="text-dark" href="{{article['url']}}">{{article['title']}}</a></h5>
-      <p class="card-text text-left">{{article['description']}}</p>
+      {% if article['urlToImage'] != None %}
+      <img class="card-img-top" src="{{article['urlToImage']}}">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title text-left">
+          <a class="text-dark" href="{{article['url']}}">{{article['title']}}</a>
+        </h5>
+        <p class="card-text text-left">
+          {{article['description']}}
+        </p>
+        <p class="card-text text-left">
+          <small class="text-muted">
+            {{article['source']['name']}} | {{article['publishedAt']}}
+          </small>
+        </p>
+      </div>
     </div>
     {% endfor %}
 </div>
