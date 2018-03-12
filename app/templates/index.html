@@ -16,7 +16,9 @@
       {% endif %}
       <div class="card-body">
         <h5 class="card-title text-left">
-          <a class="text-dark" href="{{article['url']}}">{{article['title']}}</a>
+          <a class="text-dark" href="{{article['url']}}" target="_blank" rel="noopener noreferrer">
+            {{article['title']}}
+          </a>
         </h5>
         <p class="card-text text-left">
           {{article['description']}}
