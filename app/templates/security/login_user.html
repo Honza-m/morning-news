@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+{% include "security/_messages.html" %}
+<div class="col">
+{% if login_user_form.email.errors or login_user_form.password.errors %}
+  <div class="alert alert-warning">
+    {% for error in login_user_form.email.errors %}
+      {{ error }}<br>
+    {% endfor %}
+    {% for error in login_user_form.password.errors %}
+      {{ error }}<br>
+    {% endfor %}
+  </div>
+{% endif %}
+<div class="col col-lg-6 mx-auto">
+<h1>Login</h1>
+<form action="{{ url_for_security('login') }}" method="POST" name="login_user_form" class="form">
+  {{ login_user_form.hidden_tag() }}
+  <div class="form-group">
+    {{ login_user_form.email(class='form-control', placeholder='email address', required=True) }}
+  </div>
+  <div class="form-group">
+    {{ login_user_form.password(class='form-control', placeholder='password', required=True) }}
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        {{ login_user_form.remember }} {{ login_user_form.remember.label }}
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+     {{ login_user_form.submit(class='btn btn-primary') }}
+  </div>
+</form>
+</div>
+</div>
+{% include "security/_menu.html" %}
+{% endblock %}
