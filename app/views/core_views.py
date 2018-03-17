@@ -5,24 +5,19 @@ from app import app
 from flask import render_template
 from flask_security import login_required, current_user
 
-import requests, os
-from datetime import datetime
-
 @app.route('/')
 def index():
-    params = {
-        'apiKey': os.environ['NEWSAPI'],
-        'country': 'gb'
-    }
-    r = requests.get("https://newsapi.org/v2/top-headlines", params=params)
-    articles = [x for x in r.json().get('articles',[])]
-    for article in articles:
-        if article.get('publishedAt'):
-            article['publishedAt'] = datetime.strptime(
-                            article.get('publishedAt'),
-                            '%Y-%m-%dT%H:%M:%SZ').strftime('%d %B %Y - %H:%M')
+    from app import tools
+    try:
+        articles = tools.get_news()
+        weather = tools.get_weather()
+    except Exception as e:
+        return str(e)
 
-    return render_template('index.html', articles=articles)
+    return render_template('index.html',
+                           articles=articles,
+                           weather=weather,
+                           weather_city='Edinburgh') #This is to change according to user settings
 
 @app.route('/dash')
 @login_required

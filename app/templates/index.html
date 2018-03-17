@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Test title{% endblock %}
+{% block title %}Dashboard{% endblock %}
 {% block content %}
 
 <div class="card-columns">
@@ -8,6 +8,26 @@
       <p class="card-text text-center">
         The site is not ready yet, but should be soon!
       </p>
+    </div>
+    <div class="card m-1 p-3">
+      <h3 class="card-title">Weather in {{weather_city}}</h3>
+      <table class="mx-auto" style="font-size: 18px; line-height: 1.2;">
+        {% for date in weather %}
+          <tr>
+            <td class="align-top text-right" style="min-width: 68.5px">
+              <b>{{date}} |</b><br>
+              <img src="/static/weather_icons/{{weather[date]['icon']}}.png" height="60px">
+            </td>
+            <td class="align-top">
+              <b>{{weather[date]['symbol']}}</b>
+              {% if weather[date]['precip'] %}({{weather[date]['precip']}} mm){% endif %}<br>
+              {{weather[date]['temp']}} °C
+              <br>
+              {{weather[date]['pressure']}} hPa, {{weather[date]['wind']}}<br><br>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
     {% for article in articles %}
     <div class="card m-1 p-3">
