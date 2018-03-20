@@ -11,7 +11,7 @@
           <li class="menu-selector list-group-item list-group-item-action active" id="weather">
               Weather
           </li>
-          {% for setting in current_user.settings %}
+          {% for setting in current_user.settings | sort(setting.name) %}
           <li class="menu-selector list-group-item list-group-item-action" id="{{setting.id}}">
               <div class="row">
                 <div class="text-left m-0 pl-3 p-0 w-75">{{setting['name']}}</div>
