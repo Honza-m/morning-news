@@ -3,7 +3,6 @@
 {% block title %}Log-in{% endblock %}
 
 {% block content %}
-{% include "security/_messages.html" %}
 <div class="col">
 {% if login_user_form.email.errors or login_user_form.password.errors %}
   <div class="alert alert-warning">

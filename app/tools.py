@@ -5,19 +5,26 @@ import requests, os
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-def get_news():
+def get_news(q=None, sources=None):
+    """ This wrapper needs a lot of work, including error handling, more args etc."""
     params = {
-        'apiKey': os.environ['NEWSAPI'],
-        'country': 'gb'
+        'apiKey': os.environ['NEWSAPI']
     }
+    if q: params['q'] = q
+    if sources: params['sources'] = sources
+    if not sources and not q: params['country'] = 'gb'
+    #same for country here
+
     r = requests.get("https://newsapi.org/v2/top-headlines", params=params)
     articles = [x for x in r.json().get('articles',[])]
     for article in articles:
         if article.get('publishedAt'):
-            article['publishedAt'] = datetime.strptime(
+            try:
+                article['publishedAt'] = datetime.strptime(
                             article.get('publishedAt'),
                             '%Y-%m-%dT%H:%M:%SZ').strftime('%d %B %Y - %H:%M')
-
+            except:
+                article['publishedAt'] = None
     return articles
 
 def get_weather(city_url="https://www.yr.no/place/United_Kingdom/Scotland/Edinburgh/forecast.xml"):
