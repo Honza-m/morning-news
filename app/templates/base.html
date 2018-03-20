@@ -32,7 +32,7 @@
               <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/">Top UK headlines</a>
                 {% if current_user.is_authenticated %}
-                  {% for setting in current_user.settings | sort(setting.name) %}
+                  {% for setting in current_user.settings | sort(attribute='name') %}
                   <a class="nav-item nav-link active" href="/?i={{setting['id']}}">{{setting['name']}}</a>
                   {% endfor %}
                   <a class="nav-item nav-link" href="/settings">Settings</a>
