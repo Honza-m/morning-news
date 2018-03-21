@@ -3,7 +3,7 @@ logger = logging.getLogger(__name__)
 
 from app import app, tools
 from app.database.models import Settings, db
-from flask import render_template, request
+from flask import render_template, request, redirect
 from flask_security import login_required, current_user
 
 #THIS SHOULD REALLY BE /DASH and should @login_required to be safe
@@ -53,7 +53,7 @@ def settingsEdit():
 
     except Exception as e:
         return str(e)
-    return render_template('user-settings.html')
+    return redirect('/settings')
 
 @app.route('/settings-delete', methods=['GET'])
 @login_required
@@ -64,4 +64,4 @@ def settingsDelete():
         db.session.commit()
     except Exception as e:
         return str(e)
-    return render_template('user-settings.html')
+    return redirect('/settings')
