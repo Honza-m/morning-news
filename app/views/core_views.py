@@ -11,10 +11,9 @@ from flask_security import login_required, current_user
 def index():
     try:
         settings_id = request.args.get('i');
-        if settings_id:
+        if current_user.is_authenticated and settings_id:
             settings = Settings.query.filter_by(id=str(settings_id), user_id=current_user.id).first()
-            articles = tools.get_news(q=settings.q,
-                                      sources=settings.sources)
+            articles = tools.get_news(q=settings.q, sources=settings.sources)
         else:
             articles = tools.get_news()
 
@@ -25,6 +24,7 @@ def index():
     return render_template('index.html',
                            articles=articles,
                            weather=weather,
+                           settings_id=settings_id,
                            weather_city='Edinburgh') #This is to change according to user settings
 
 @app.route('/settings')
