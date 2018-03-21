@@ -30,17 +30,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/">Top UK headlines</a>
+                <a class="nav-item nav-link {% if settings_id==None %} active {% endif %}" href="/">
+                  Top UK headlines
+                </a>
                 {% if current_user.is_authenticated %}
                   {% for setting in current_user.settings | sort(attribute='name') %}
-                  <a class="nav-item nav-link active" href="/?i={{setting['id']}}">{{setting['name']}}</a>
+                  <a class="nav-item nav-link {%if settings_id==setting['id']|string%} active {% endif %}"
+                     href="/?i={{setting['id']}}">
+                    {{setting['name']}}
+                  </a>
                   {% endfor %}
                   <a class="nav-item nav-link" href="/settings">Settings</a>
                   <a class="nav-item nav-link" href="#">About</a>
-                  <a class="nav-item nav-link active" href="/logout">Logout</a>
+                  <a class="nav-item nav-link" href="/logout">Logout</a>
                 {% else %}
                   <a class="nav-item nav-link" href="#">About</a>
-                  <a class="nav-item nav-link active" href="/login">Log-in</a>
+                  <a class="nav-item nav-link" href="/login">Log-in</a>
                 {% endif %}
               </div>
             </div>
