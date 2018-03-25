@@ -44,6 +44,16 @@ class Settings(db.Model):
     def __repr__(self):
         return "<Settings {}>".format(self.id)
 
+class Source(db.Model):
+    id = db.Column(db.String, primary_key=True)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
+    url = db.Column(db.String)
+    category = db.Column(db.String)
+    language = db.Column(db.String)
+    country = db.Column(db.String)
+
+
 # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
